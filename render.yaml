@@ -1,0 +1,24 @@
+# Render Blueprint — lets Render set the whole service up from this file.
+# In Render: New + > Blueprint > pick this GitHub repo.
+services:
+  - type: web
+    name: apex-racing
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: DATA_SOURCE
+        value: mock
+      # Add these in the Render dashboard when you connect iRacing.
+      # sync: false means Render asks you for the value — it's never stored in GitHub.
+      - key: IRACING_CLIENT_ID
+        sync: false
+      - key: IRACING_CLIENT_SECRET
+        sync: false
