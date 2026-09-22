@@ -1,0 +1,342 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  color-scheme: dark;
+  --bg:#0d0f13;
+  --bg-2:#111419;
+  --panel:#161a20;
+  --panel-2:#1c2028;
+  --line:#2a2f38;
+  --line-soft:#22262e;
+  --text:#eef1f5;
+  --muted:#9aa3b0;
+  --dim:#6b7380;
+  --red:#e3261c;
+  --red-deep:#a8130c;
+  --green:#34c05f;
+  --green-bg:#1b5a2c;
+  --gold:#e8b53c;
+  --loss-bg:#7a1712;
+  --radius:6px;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --sidebar:210px;
+
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;min-height:100%;
+  background:var(--bg);color:var(--text);
+  font-family:var(--body);font-size:15px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+.app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}
+
+.sidebar{
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#0f1216 0%,#0b0d10 100%);
+  border-right:1px solid var(--line-soft);
+  z-index:40;
+}
+.brand{padding:18px 20px 22px}
+.brand-mark{
+  font-family:var(--display);font-style:italic;font-weight:900;
+  font-size:29px;line-height:1;letter-spacing:.3px;white-space:nowrap;
+}
+.brand-mark .r{color:var(--red)}
+.brand-tag{margin-top:6px;font-size:9.5px;letter-spacing:2.4px;color:var(--muted);text-transform:uppercase}
+
+.nav{list-style:none;margin:0;padding:0;flex:1;overflow-y:auto}
+.nav a{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 22px;color:#d4d8de;font-weight:500;font-size:15.5px;
+  border-left:4px solid transparent;
+}
+.nav a svg{width:22px;height:22px;flex:none;opacity:.9}
+.nav a:hover{background:rgba(255,255,255,.04)}
+.nav a[aria-current="page"]{
+  background:linear-gradient(90deg,rgba(227,38,28,.35),rgba(227,38,28,.05));
+  border-left-color:var(--red);color:#fff;
+}
+.sidebar-foot{padding:22px;font-size:12px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;line-height:1.6}
+
+.main{min-width:0;display:flex;flex-direction:column}
+
+/* Top bar (user chip) */
+.topbar{
+  position:absolute;top:0;right:0;z-index:30;
+  display:flex;align-items:center;gap:6px;
+  padding:10px 14px 10px 18px;
+  background:rgba(10,12,15,.88);backdrop-filter:blur(6px);
+  border-bottom-left-radius:10px;
+}
+.user{display:flex;align-items:center;gap:12px;padding-right:14px;border-right:1px solid var(--line)}
+.avatar{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#3a414c,#15181d);display:grid;place-items:center;border:2px solid #2d333c}
+.avatar svg{width:28px;height:28px}
+.user-name{font-weight:600;font-size:15px;line-height:1.1}
+.user-id{font-size:12.5px;color:var(--muted)}
+.user-rank{display:flex;align-items:center;gap:8px;margin-left:10px}
+.user-rank .badge{width:34px;height:38px}
+.user-rank .t{font-size:14px;color:var(--gold);font-weight:600;line-height:1.1}
+.user-rank .rp{font-size:12px;color:var(--muted)}
+.icon-btn{position:relative;background:none;border:0;padding:10px;border-radius:8px}
+.icon-btn:hover{background:rgba(255,255,255,.06)}
+.icon-btn svg{width:26px;height:26px}
+.dot{position:absolute;top:3px;right:3px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:var(--red);font-size:11.5px;font-weight:700;display:grid;place-items:center}
+.menu-btn{display:none}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;min-height:380px;
+  padding:96px 40px 40px 36px;
+  background:var(--bg);
+  overflow:hidden;
+}
+.hero-img{
+  position:absolute;inset:0 0 0 auto;width:70%;
+  background:url("../img/hero.jpg") 30% center/cover no-repeat;
+}
+.hero::before{ /* fade image into the page on the left & bottom */
+  content:"";position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(90deg,var(--bg) 28%,rgba(13,15,19,.7) 40%,rgba(13,15,19,0) 55%),
+    linear-gradient(0deg,var(--bg) 0%,rgba(13,15,19,0) 22%);
+}
+.hero-inner{position:relative;z-index:2;max-width:560px}
+.hero h1{
+  margin:0;font-family:var(--display);font-style:italic;font-weight:900;
+  font-size:clamp(44px,6vw,64px);line-height:.9;letter-spacing:.5px;text-transform:uppercase;
+}
+.hero h1 .accent{color:var(--red);display:block}
+.hero p{margin:18px 0 26px;font-size:15px;letter-spacing:2.6px;text-transform:uppercase;color:#d8dce2;line-height:1.5}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-slogan{
+  position:absolute;right:34px;bottom:34px;z-index:2;text-align:right;
+  font-size:13px;letter-spacing:3px;text-transform:uppercase;line-height:1.5;
+}
+.hero-slogan::after{content:"";display:block;width:26px;height:2px;background:var(--red);margin:10px 0 0 auto}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  border-radius:4px;border:1px solid transparent;
+  font-family:var(--display);font-weight:600;letter-spacing:.8px;text-transform:uppercase;
+  transition:filter .15s,background .15s,border-color .15s;
+  white-space:nowrap;
+}
+.btn svg{width:18px;height:18px}
+.btn-lg{padding:14px 40px;font-size:21px}
+.btn-md{padding:10px 26px;font-size:17px}
+.btn-sm{padding:7px 14px;font-size:14px}
+.btn-red{background:linear-gradient(180deg,#f0342a,#c4180f);color:#fff;box-shadow:0 6px 20px rgba(227,38,28,.25)}
+.btn-red:hover{filter:brightness(1.12)}
+.btn-ghost{background:rgba(10,12,15,.6);border-color:#3a404a;color:#fff}
+.btn-ghost:hover{border-color:#6b7380}
+.btn-done{background:var(--green-bg);color:#d9ffe4;border-color:#2c7a43;box-shadow:none}
+.btn-block{width:100%}
+
+/* ============================================================
+   DASHBOARD GRID + PANELS
+   ============================================================ */
+.dash{
+  display:grid;gap:14px;padding:0 20px 20px;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);
+  margin-top:-4px;position:relative;z-index:3;
+}
+.panel{
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  display:flex;flex-direction:column;min-width:0;
+}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px;border-bottom:1px solid var(--line-soft);
+  background:rgba(0,0,0,.18);
+}
+.panel-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.6px;text-transform:uppercase}
+.panel-head a{font-size:13.5px;color:var(--muted)}
+.panel-head a:hover{color:#fff}
+.panel-body{padding:16px;flex:1;display:flex;flex-direction:column}
+
+/* Your rank */
+.rank-wrap{display:grid;grid-template-columns:1fr auto;gap:22px}
+.rank-main{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.rank-top{display:flex;align-items:center;gap:22px}
+.rank-top .badge{width:86px;height:96px;flex:none}
+.rank-name{font-family:var(--display);font-weight:600;font-size:36px;line-height:1}
+.rank-rp{font-family:var(--display);font-weight:600;font-size:32px;color:var(--gold);line-height:1.1}
+.rank-rp small{font-size:20px;color:#fff;margin-left:4px}
+.bar{height:11px;border-radius:6px;background:#2b3039;overflow:hidden;margin:20px 0 10px}
+.bar > span{display:block;height:100%;border-radius:inherit;transition:width .8s ease}
+.bar.gold > span{background:linear-gradient(90deg,#d99c20,#f3c65a)}
+.bar.green > span{background:linear-gradient(90deg,#20a64a,#3fd46f)}
+.bar-note{font-size:14px;color:#d4d8de}
+.form{border-left:1px solid var(--line);padding-left:22px;display:flex;flex-direction:column}
+.form-title{font-size:14px;font-weight:500}
+.form-sub{font-size:12px;color:var(--muted);margin-bottom:10px}
+.form-grid{display:grid;grid-template-columns:repeat(5,38px);gap:6px;margin-bottom:16px}
+.chip{height:30px;border-radius:3px;display:grid;place-items:center;font-size:13px;font-weight:600;background:#343944;color:#dfe3e8}
+.chip.gain{background:var(--green-bg);color:#e2ffe9}
+.chip.loss{background:var(--loss-bg);color:#ffe3e1}
+.chip.win{background:var(--gold);color:#241800}
+.form .btn{margin-top:auto}
+
+/* Media cards (featured / next race) */
+.media{position:relative;margin:12px 12px 0;border-radius:4px;overflow:hidden;background:#000}
+.media img{width:100%;height:100%;object-fit:cover}
+.featured .media{aspect-ratio:340/142}
+.featured-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:10px 16px 14px}
+.featured-foot h3{margin:0;font-family:var(--display);font-weight:700;font-size:24px;line-height:1.05;text-transform:uppercase}
+.featured-foot p{margin:2px 0 0;font-size:14px;color:#cfd4db}
+
+.countdown{font-family:var(--display);font-weight:600;font-size:22px;color:var(--red);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.countdown.live{color:var(--green)}
+.next .media{aspect-ratio:336/48;margin-bottom:0}
+.next .media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(22,26,32,1))}
+.next-title{margin:-2px 0 8px;font-family:var(--display);font-weight:600;font-size:25px;position:relative;z-index:1}
+.next-body{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.next-body .facts{flex:1 1 170px}
+.next-body .btn{flex:1 0 auto}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:14.5px;color:#d7dbe1}
+.facts li{display:flex;align-items:center;gap:10px}
+.facts svg{width:18px;height:18px;opacity:.85;flex:none}
+
+/* Recent races table */
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-size:11.5px;font-weight:500;color:var(--muted);text-align:left;padding:10px 12px 8px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.pos{font-family:var(--display);font-weight:700;font-size:18px}
+th.num,td.num{text-align:right}
+td.num{font-family:var(--display);font-weight:600;font-size:19px}
+.plus{color:var(--green)}
+.minus{color:#ff4a3d}
+.flat{color:var(--muted)}
+
+/* Season */
+.season-name{font-family:var(--display);font-weight:600;font-size:22px;line-height:1}
+.season-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14.5px;color:#cfd4db}
+.season-row small{font-size:12px}
+.stats{list-style:none;margin:6px 0 14px;padding:0;display:grid;gap:5px}
+.stats li{display:flex;justify-content:space-between;font-size:14.5px;color:#cfd4db}
+.stats b{font-family:var(--display);font-weight:600;font-size:18px;color:#fff}
+.season .btn{margin-top:auto}
+
+/* News */
+.news{list-style:none;margin:0;padding:0 16px}
+.news li + li{border-top:1px solid var(--line-soft)}
+.news a{display:flex;gap:12px;align-items:center;padding:7px 0}
+.news img{width:88px;height:46px;object-fit:cover;border-radius:3px;flex:none}
+.news-title{font-size:14.5px;font-weight:500;line-height:1.25}
+.news a:hover .news-title{color:#fff;text-decoration:underline;text-decoration-color:var(--red)}
+.news-date{font-size:13px;color:var(--muted)}
+
+.span-2{grid-column:span 1}
+
+/* ============================================================
+   RANK LADDER
+   ============================================================ */
+.ladder{
+  grid-column:1 / -1;min-width:0;border-top:1px solid var(--line-soft);
+  background:#0a0c0f;
+  display:flex;align-items:center;gap:0;
+  padding:12px 20px;
+}
+.ladder-track{display:flex;align-items:flex-end;flex:1;min-width:0;overflow-x:auto;padding:6px 0 2px;scrollbar-width:thin}
+.ladder-group{display:flex;gap:2px;padding:0 6px;border-right:1px solid var(--line)}
+.ladder-group:last-child{border-right:0}
+.tier{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:56px;padding:6px 2px 4px;border-radius:6px;position:relative}
+.tier .badge{width:34px;height:38px}
+.tier span{font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+.tier.current{background:rgba(232,181,60,.12);box-shadow:inset 0 0 0 1px rgba(232,181,60,.55)}
+.tier.current::before{content:"You";position:absolute;top:-9px;font-size:9px;font-weight:700;background:var(--gold);color:#241800;padding:1px 6px;border-radius:8px;text-transform:uppercase}
+.tier.big .badge{width:44px;height:48px}
+.ladder-slogan{flex:none;font-size:11.5px;letter-spacing:1.6px;color:var(--dim);text-transform:uppercase;line-height:1.45;padding-left:18px;border-left:1px solid var(--line);margin-left:10px}
+
+/* ============================================================
+   PLACEHOLDER VIEWS (other routes)
+   ============================================================ */
+.view[hidden]{display:none}
+.placeholder{padding:110px 36px 60px;max-width:640px}
+.placeholder h1{font-family:var(--display);font-style:italic;font-weight:800;font-size:52px;margin:0 0 10px;text-transform:uppercase}
+.placeholder p{color:var(--muted);font-size:16px;margin:0 0 24px}
+
+/* Toast */
+.toast{
+  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
+  background:#1f242c;border:1px solid var(--line);border-left:4px solid var(--green);
+  padding:12px 18px;border-radius:6px;font-size:14.5px;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:100;max-width:calc(100% - 32px);
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.scrim{display:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1280px){
+  .dash{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dash .rank{grid-column:1 / -1}
+  .dash .races{grid-column:1 / -1}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;width:260px;height:100%;
+    padding-top:env(safe-area-inset-top,0px);
+    transform:translateX(-100%);transition:transform .25s ease;
+  }
+  .sidebar.open{transform:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:35;opacity:0;pointer-events:none;transition:opacity .25s}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .menu-btn{display:inline-flex}
+  .topbar{left:0;right:0;border-radius:0;justify-content:space-between;padding:8px 10px;top:0}
+  .topbar .spacer{flex:1}
+  .mobile-brand{display:block!important;font-family:var(--display);font-style:italic;font-weight:900;font-size:24px}
+  .mobile-brand .r{color:var(--red)}
+  .user{border-right:0;padding-right:0}
+  .user-text,.user-rank .rp{display:none}
+  .avatar{width:36px;height:36px}
+  .hero{padding:100px 20px 32px;min-height:0}
+  .hero-img{width:100%;opacity:.55}
+  .hero::before{background:linear-gradient(90deg,rgba(13,15,19,.9),rgba(13,15,19,.3)),linear-gradient(0deg,var(--bg),rgba(13,15,19,0) 30%)}
+  .hero-slogan{display:none}
+  .dash{grid-template-columns:minmax(0,1fr);padding:0 12px 16px}
+  .ladder{padding:10px 8px}
+  .ladder-slogan{display:none}
+}
+@media (max-width:560px){
+  .rank-wrap{grid-template-columns:1fr}
+  .form{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}
+  .form-grid{grid-template-columns:repeat(5,1fr)}
+  .btn-lg{padding:12px 24px;font-size:18px;flex:1}
+  .hero-actions .btn{flex:1}
+  .next-body{flex-direction:column;align-items:stretch}
+  .user-rank .t{display:none}
+  .avatar{display:none}
+  .topbar{gap:0}
+  .icon-btn{padding:8px}
+  .user-rank{margin-left:0}
+}
+.mobile-brand{display:none}
