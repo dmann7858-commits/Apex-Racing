@@ -1,5 +1,5 @@
 /* =====================================================================
-   APEX RACING — FRONT END
+   GRIDLINE — FRONT END
    All data comes from the server's /api routes. The rank tiers
    themselves live on the server in src/ranks.js.
    ===================================================================== */
@@ -47,10 +47,10 @@ function badgeSVG(tier){
 
 /* =====================================================================
    2. API CLIENT
-   Talks to the Apex server. The server decides whether the data comes
+   Talks to the Gridline server. The server decides whether the data comes
    from sample data or from iRacing — the page doesn't need to know.
    ===================================================================== */
-const ApexAPI = {
+const GridlineAPI = {
   async request(path, options = {}){
     const res = await fetch("/api" + path, {
       headers:{ "Content-Type":"application/json" },
@@ -95,11 +95,11 @@ const ROUTES = [
   { id:"find-race", label:"Find Race",  icon:"flag",   blurb:"Search open ranked lobbies by series, car and start time." },
   { id:"schedule",  label:"Schedule",   icon:"cal",    blurb:"The full week of ranked sessions, in your local time." },
   { id:"profile",   label:"My Profile", icon:"user",   blurb:"Your RP history, form, incidents and career stats." },
-  { id:"rankings",  label:"Rankings",   icon:"trophy", blurb:"Global and regional Apex leaderboards." },
-  { id:"series",    label:"Series",     icon:"car",    blurb:"Every Apex series with its cars, tracks and rules." },
+  { id:"rankings",  label:"Rankings",   icon:"trophy", blurb:"Global and regional Gridline leaderboards." },
+  { id:"series",    label:"Series",     icon:"car",    blurb:"Every Gridline series with its cars, tracks and rules." },
   { id:"results",   label:"Results",    icon:"chart",  blurb:"Every race you've entered, with RP changes." },
   { id:"incidents", label:"Incidents",  icon:"doc",    blurb:"Report an incident or track a review you're involved in." },
-  { id:"news",      label:"News",       icon:"mega",   blurb:"Announcements from the Apex team." },
+  { id:"news",      label:"News",       icon:"mega",   blurb:"Announcements from the Gridline team." },
   { id:"store",     label:"Store",      icon:"cart",   blurb:"Liveries, badges and supporter perks." },
   { id:"settings",  label:"Settings",   icon:"gear",   blurb:"Account, iRacing link and notification preferences." },
 ];
@@ -169,7 +169,7 @@ function renderNextRace(r){
     const btn = $("#joinBtn");
     btn.disabled = true;
     try {
-      const { race } = await ApexAPI.joinRace(r.id);
+      const { race } = await GridlineAPI.joinRace(r.id);
       Object.assign(r, race);
       btn.className = "btn btn-md btn-done";
       btn.textContent = "Registered";
@@ -203,7 +203,7 @@ function startCountdown(target){
     if (s === 0){
       el.textContent = "Live now"; el.classList.add("live"); clearInterval(countdownTimer);
       // once it's started, load the following race after a minute
-      setTimeout(() => ApexAPI.getHome().then(d => renderNextRace(d.nextRace)).catch(() => {}), 60000);
+      setTimeout(() => GridlineAPI.getHome().then(d => renderNextRace(d.nextRace)).catch(() => {}), 60000);
       return;
     }
     const p = n => String(n).padStart(2, "0");
@@ -310,7 +310,7 @@ async function init(){
   route();
 
   try {
-    const [data, ranks] = await Promise.all([ApexAPI.getHome(), ApexAPI.getRanks()]);
+    const [data, ranks] = await Promise.all([GridlineAPI.getHome(), GridlineAPI.getRanks()]);
     const { driver, rank } = data;
 
     renderUser(driver, rank.tier);

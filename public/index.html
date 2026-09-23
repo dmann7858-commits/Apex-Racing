@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Gridline: ranked iRacing with its own independent ranking system.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Apex Racing</title>
+<title>Gridline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,700;1,800;1,900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 <body>
 <div class="app">
@@ -15,7 +17,7 @@
   <!-- ===================== SIDEBAR ===================== -->
   <aside class="sidebar" id="sidebar" aria-label="Main navigation">
     <div class="brand">
-      <div class="brand-mark">APEX<span class="r">RACING</span></div>
+      <div class="brand-mark">GRID<span class="r">LINE</span></div>
       <div class="brand-tag">Drivers. Races. Ranks. Together.</div>
     </div>
     <ul class="nav" id="nav"></ul>
@@ -30,7 +32,7 @@
         <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <div class="mobile-brand">APEX<span class="r">RACING</span></div>
+        <div class="mobile-brand">GRID<span class="r">LINE</span></div>
         <div class="spacer"></div>
         <div class="user" id="userChip"></div>
         <button class="icon-btn" aria-label="Notifications" id="bellBtn">
@@ -38,7 +40,7 @@
           <span class="dot" id="notifCount"></span>
         </button>
         <a class="icon-btn" href="#settings" aria-label="Settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.820-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </a>
       </header>
     </div>
@@ -115,10 +117,10 @@
   </div>
 
   <!-- ============ RANK LADDER ============ -->
-  <footer class="ladder" aria-label="Apex rank tiers">
-    <div class="ladder-track" id="ladder"></div>
-    <div class="ladder-slogan">Same<br>track.<br>A higher<br>standard.</div>
-  </footer>
+    <footer class="ladder" aria-label="Gridline rank tiers">
+      <div class="ladder-track" id="ladder"></div>
+      <div class="ladder-slogan">Same<br>track.<br>A higher<br>standard.</div>
+    </footer>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

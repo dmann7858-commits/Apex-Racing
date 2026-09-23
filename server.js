@@ -30,6 +30,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Apex Racing running on http://localhost:${PORT}`);
+  console.log(`Gridline running on http://localhost:${PORT}`);
   console.log(`Data source: ${process.env.DATA_SOURCE || "mock"}`);
 });
